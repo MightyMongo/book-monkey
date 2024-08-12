@@ -1,0 +1,17 @@
+<input type="search" autocomplete="off" aria-label="Search" [class.loading]="isLoading" #searchInput (input)="input$.next(searchInput.value)" >
+
+@if (results$ | async; as results) {
+  <ul class="search-results">
+    @for (book of results; track book) {
+      <li>
+        <a [routerLink]="['/books', book.isbn]">
+          {{ book.title }}
+          <p role="doc-subtitle">{{ book.subtitle }}</p>
+        </a>
+      </li>            
+    }
+    @if (!results.length) {
+      <li>No results</li>
+    }
+  </ul>
+}
